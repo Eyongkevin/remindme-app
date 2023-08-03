@@ -23,45 +23,48 @@
          outline_color: (0,0,1)
          outline_width: 10
          font_size: 40
-      GridLayout:
-         cols: 2
-         background_color: (0,0,1,1)
-         BoxLayout:
-            orientation: 'vertical'
-            size_hint_x: 0.2
-            spacing: 5
-            #padding: 20
-            canvas.before:
-               Color:
-                  rgb: utils.get_color_from_hex("#03233d")
-               RoundedRectangle:
-                  size: self.size
-                  pos: self.pos
-                  radius: [8]
-            CustomButton:
-               background_normal: 'images/home.png'
-               text:''
-               size_hint_y: 0.2
+      TabLayout:
+
+
+      # GridLayout:
+         # cols: 2
+         # background_color: (0,0,1,1)
+         # BoxLayout:
+         #    orientation: 'vertical'
+         #    size_hint_x: 0.2
+         #    spacing: 5
+         #    #padding: 20
+         #    canvas.before:
+         #       Color:
+         #          rgb: utils.get_color_from_hex("#03233d")
+         #       RoundedRectangle:
+         #          size: self.size
+         #          pos: self.pos
+         #          radius: [8]
+         #    CustomButton:
+         #       background_normal: 'images/home.png'
+         #       text:''
+         #       size_hint_y: 0.2
                   
-            CustomButton:
-               background_normal: 'images/list.png'
-               text:''
-               size_hint_y: 0.2
-            CustomButton:
-               background_normal: 'images/setting.png'
-               text:''
-               size_hint_y: 0.2
-            Label:
-               text:''
-               # canvas.before:
-               #    Color:
-               #       rgba: (0,0,0,1)
-               #    Rectangle:
-               #       size: self.size
-               #       pos: self.pos
-         GridLayout:
-            cols: 1
-            background_color: (0,1,1,1)
-            Label:
-               text:'Display'
+         #    CustomButton:
+         #       background_normal: 'images/list.png'
+         #       text:''
+         #       size_hint_y: 0.2
+         #    CustomButton:
+         #       background_normal: 'images/setting.png'
+         #       text:''
+         #       size_hint_y: 0.2
+         #    Label:
+         #       text:''
+         #       # canvas.before:
+         #       #    Color:
+         #       #       rgba: (0,0,0,1)
+         #       #    Rectangle:
+         #       #       size: self.size
+         #       #       pos: self.pos
+         # GridLayout:
+         #    cols: 1
+         #    background_color: (0,1,1,1)
+         #    Label:
+         #       text:'Display'
 

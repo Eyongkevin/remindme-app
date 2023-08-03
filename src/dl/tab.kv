@@ -1,0 +1,43 @@
+<TabLayout>:
+   do_default_tab: False
+   tab_pos: 'left_top'
+   tab_height: self.parent.height / 15
+   tab_width: self.parent.width / 5
+  
+   TabbedPanelItem:
+      text: ''
+      canvas:
+         Rectangle:
+            source: 'images/setting.png'
+            #size: self.size[0] - 100, self.size[1]
+            size: self.size
+            pos: self.pos
+      Button:
+         background_normal: 'images/setting.png'
+         text:''
+         size_hint_y: 0.2
+
+   TabbedPanelItem:
+      text: ''
+      canvas:
+         Rectangle:
+            source: 'images/list.png'
+            size: self.size
+            pos: self.pos
+      Button:
+         background_normal: 'images/list.png'
+         text:''
+         size_hint_y: 0.2
+
+   TabbedPanelItem:
+      text: ''
+      size_hint: .5, 0.5   
+      canvas:
+         Rectangle:
+            source: 'images/home.png'
+            size: self.size
+            pos: self.pos
+      Button:
+         background_normal: 'images/home.png'
+         text:''
+         size_hint_y: 0.2
