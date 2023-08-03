@@ -1,11 +1,84 @@
 #: import utils kivy.utils
+#: import Factory kivy.factory.Factory
+
+<RepeatPopup@Popup>:
+   auto_dismiss: True 
+   title: 'Repeat'
+   size_hint: 0.9, 0.7
+   GridLayout:
+      cols: 1
+      rows: 2
+      BoxLayout:
+         orientation:'vertical'
+         padding: 15
+         spacing: 15
+         BoxLayout:
+            orientation: 'horizontal'
+            CheckBoxLayout:
+               on_active: self.repeat_check(self, self.active, {1:'Mon'})
+               active: self.is_active('Mon')
+            Label:
+               text:'Mon'
+         BoxLayout:
+            orientation: 'horizontal'
+            CheckBoxLayout:
+               on_active: self.repeat_check(self, self.active, {2:'Tues'})
+               active: self.is_active('Tues')
+            Label:
+               text:'Tues'
+         BoxLayout:
+            orientation: 'horizontal'
+            CheckBoxLayout:
+               on_active: self.repeat_check(self, self.active, {3:'Wed'})
+               active: self.is_active('Wed')
+            Label:
+               text:'Wed'
+         BoxLayout:
+            orientation: 'horizontal'
+            CheckBoxLayout:
+               on_active: self.repeat_check(self, self.active, {4:'Thurs'})
+               active: self.is_active('Thurs')
+            Label:
+               text:'Thurs'
+         BoxLayout:
+            orientation: 'horizontal'
+            CheckBoxLayout:
+               on_active: self.repeat_check(self, self.active, {5:'Fri'})
+               active: self.is_active('Fri')
+            Label:
+               text:'Fri'
+         BoxLayout:
+            orientation: 'horizontal'
+            CheckBoxLayout:
+               on_active: self.repeat_check(self, self.active, {6:'Sat'})
+               active: self.is_active('Sat')
+            Label:
+               text:'Sat'
+         BoxLayout:
+            orientation: 'horizontal'
+            CheckBoxLayout:
+               on_active: self.repeat_check(self, self.active, {7:'Sun'})
+               active: self.is_active('Sun')
+            Label:
+               text:'Sun'
+      Button:
+         text:'Close'
+         font_size: 20
+         size_hint: 0.1, 0.1
+         on_release: root.dismiss()
 
 <TabLayout>:
+   hour:hour
+   minute:minute
+   second:second
+   sound:sound 
+   popup:popup
+   label:label
    do_default_tab: False
    tab_pos: 'left_top'
    tab_height: self.parent.height / 15
    tab_width: self.parent.width / 5
-  
+
    TabbedPanelItem:
       text: ''
       canvas:
@@ -66,15 +139,18 @@
                   BoxLayout:
                      orientation:'horizontal'
                      TextInput:
-                        text:'04'
+                        id: hour
+                        text:'00'
                         size_hint_y: 1
                         size_hint_x: 0.5
                      TextInput:
-                        text:'11'
+                        id: minute
+                        text:'00'
                         size_hint_y: 1
                         size_hint_x: 0.5
                      TextInput:
-                        text:'44'
+                        id: second
+                        text:'00'
                         size_hint_y: 1
                         size_hint_x: 0.5
                   BoxLayout:
@@ -85,9 +161,25 @@
                         text:'mm'
                      Label:
                         text:'ss'
-               Button:
-                  text:'once >'
-                  background_color: (35/255, 36/255, 35/255, 1)
+               OnceBoxLayout:
+                  once_days: once_days
+                  orientation:'vertical'
+                  Button:
+                     text:'once >'
+                     background_color: (35/255, 36/255, 35/255, 1)
+                     on_release: Factory.RepeatPopup().open()
+                  Label:
+                     id: once_days
+                     text: self.parent.get_days(self)
+                     background_color: (35/255, 36/255, 35/255, 1)
+                     canvas.before:
+                        Color:
+                           rgba: self.background_color
+                        Rectangle:
+                           size: self.size 
+                           pos: self.pos 
+                     color: (247/255, 134/255, 126/255, 1)
+                     font_size: 18
             
             GridLayout:
                cols: 1
@@ -102,10 +194,19 @@
                         pos: self.pos 
                GridLayout:
                   cols: 2
-                  Label:
-                     text:'Popup'
-                  Label:
-                     text:'Sound'
+                  BoxLayout:
+                     orientation:'horizontal'
+                     CheckBox:
+                        id: popup
+                        on_active: root.alarm_type_checkbox(self, self.active, 0)
+                        active: True
+                     Label:
+                        text:'Popup'
+                     CheckBox:
+                        id: sound
+                        on_active: root.alarm_type_checkbox(self, self.active, 1)
+                     Label:
+                        text:'Sound'
             GridLayout:
                cols: 1
                rows: 2
@@ -119,15 +220,18 @@
                         size: self.size 
                         pos: self.pos 
                TextInput:
+                  id: label
                   text:''
             GridLayout:
                cols: 2
                Button:
                   text:'Cancel'
                   background_color: (252/255, 36/255, 8/255, 1)
+                  on_release: root.clear()
                Button:
                   text:'Add'
                   background_color: (4/255, 204/255, 57/255, 1)
+                  on_release: root.add()
 
    TabbedPanelItem:
       text: ''
