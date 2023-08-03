@@ -1,3 +1,5 @@
+#: import utils kivy.utils
+
 <TabLayout>:
    do_default_tab: False
    tab_pos: 'left_top'
@@ -12,10 +14,120 @@
             #size: self.size[0] - 100, self.size[1]
             size: self.size
             pos: self.pos
-      Button:
-         background_normal: 'images/setting.png'
-         text:''
-         size_hint_y: 0.2
+      GridLayout:
+         cols: 1
+         Label:
+            text:'Add Remainder'
+            size_hint_y: 0.1
+            background_normal: ''
+            background_color: (60/255, 60/255, 61/255, 1)  
+            canvas.before:
+               Color:
+                  rgba: self.background_color
+               Rectangle:
+                  size: self.size 
+                  pos: self.pos 
+            # text properties
+            bold: True 
+            italic: True 
+
+         GridLayout:
+            cols: 1
+            row_default_height: '48dp'
+            row_force_default: True
+            spacing: 10, 10
+            padding: 10, 10
+            GridLayout:
+               cols: 2
+               # size_hint: None, None
+               # size: root.width, 60
+               Label:
+                  text:'Time' 
+                  background_color: utils.get_color_from_hex('#4f4e4e')
+                  canvas.before:
+                     Color:
+                        rgba: self.background_color
+                     Rectangle:
+                        size: self.size 
+                        pos: self.pos 
+               Label:
+                  text:'Repeat'
+                  background_color: utils.get_color_from_hex('#4f4e4e')
+                  canvas.before:
+                     Color:
+                        rgba: self.background_color
+                     Rectangle:
+                        size: self.size 
+                        pos: self.pos 
+            GridLayout:
+               cols: 2
+               GridLayout:
+                  cols: 1
+                  BoxLayout:
+                     orientation:'horizontal'
+                     TextInput:
+                        text:'04'
+                        size_hint_y: 1
+                        size_hint_x: 0.5
+                     TextInput:
+                        text:'11'
+                        size_hint_y: 1
+                        size_hint_x: 0.5
+                     TextInput:
+                        text:'44'
+                        size_hint_y: 1
+                        size_hint_x: 0.5
+                  BoxLayout:
+                     orientation:'horizontal'
+                     Label:
+                        text:'hh'
+                     Label:
+                        text:'mm'
+                     Label:
+                        text:'ss'
+               Button:
+                  text:'once >'
+                  background_color: (35/255, 36/255, 35/255, 1)
+            
+            GridLayout:
+               cols: 1
+               Label:
+                  text:'Alarm Type'
+                  background_color: utils.get_color_from_hex('#4f4e4e')
+                  canvas.before:
+                     Color:
+                        rgba: self.background_color
+                     Rectangle:
+                        size: self.size 
+                        pos: self.pos 
+               GridLayout:
+                  cols: 2
+                  Label:
+                     text:'Popup'
+                  Label:
+                     text:'Sound'
+            GridLayout:
+               cols: 1
+               rows: 2
+               Label:
+                  text:'Label'
+                  background_color: utils.get_color_from_hex('#4f4e4e')
+                  canvas.before:
+                     Color:
+                        rgba: self.background_color
+                     Rectangle:
+                        size: self.size 
+                        pos: self.pos 
+               TextInput:
+                  text:''
+            GridLayout:
+               cols: 2
+               Button:
+                  text:'Cancel'
+                  background_color: (252/255, 36/255, 8/255, 1)
+               Button:
+                  text:'Add'
+                  background_color: (4/255, 204/255, 57/255, 1)
 
    TabbedPanelItem:
       text: ''
