@@ -22,8 +22,8 @@
          BoxLayout:
             orientation: 'horizontal'
             CheckBoxLayout:
-               on_active: self.repeat_check(self, self.active, {2:'Tues'})
-               active: self.is_active('Tues')
+               on_active: self.repeat_check(self, self.active, {2:'Tue'})
+               active: self.is_active('Tue')
             Label:
                text:'Tues'
          BoxLayout:
@@ -36,8 +36,8 @@
          BoxLayout:
             orientation: 'horizontal'
             CheckBoxLayout:
-               on_active: self.repeat_check(self, self.active, {4:'Thurs'})
-               active: self.is_active('Thurs')
+               on_active: self.repeat_check(self, self.active, {4:'Thu'})
+               active: self.is_active('Thu')
             Label:
                text:'Thurs'
          BoxLayout:
@@ -74,6 +74,7 @@
    sound:sound 
    popup:popup
    label:label
+   alert_msg:alert_msg
    do_default_tab: False
    tab_pos: 'left_top'
    tab_height: self.parent.height / 15
@@ -84,7 +85,6 @@
       canvas:
          Rectangle:
             source: 'images/setting.png'
-            #size: self.size[0] - 100, self.size[1]
             size: self.size
             pos: self.pos
       GridLayout:
@@ -112,8 +112,6 @@
             padding: 10, 10
             GridLayout:
                cols: 2
-               # size_hint: None, None
-               # size: root.width, 60
                Label:
                   text:'Time' 
                   background_color: utils.get_color_from_hex('#4f4e4e')
@@ -232,6 +230,18 @@
                   text:'Add'
                   background_color: (4/255, 204/255, 57/255, 1)
                   on_release: root.add()
+            Label:
+               id: alert_msg
+               text:''
+               background_color: (64/255, 62/255, 63/255, 1)
+               canvas.before:
+                  Color:
+                     rgba: self.background_color
+                  Rectangle:
+                     size: self.size 
+                     pos: self.pos 
+               color: (62/255, 92/255, 70/255, 1)
+               font_size: 48
 
    TabbedPanelItem:
       text: ''

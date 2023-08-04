@@ -1,12 +1,20 @@
+from typing import List
+from datetime import time
+import json
 from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.lang import Builder
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
+from kivy.clock import Clock
 
 from src.utils import sort_dict
+from src.db.database import insert_data
+from src.db.schema import DaysEnum, AlertDataType
+from src.scheduler import Scheduler
+from src.utils import ROOT_DIR
 
-Builder.load_file("src/dl/tab.kv")
+Builder.load_file(str(ROOT_DIR / "src" / "dl" / "tab.kv"))
 
 
 class TabLayout(TabbedPanel):
@@ -16,6 +24,8 @@ class TabLayout(TabbedPanel):
     sound = ObjectProperty(None)
     popup = ObjectProperty(None)
     label = ObjectProperty(None)
+    alert_msg = ObjectProperty(None)
+
     alarm_type_checks: set = {0}
 
     def alarm_type_checkbox(self, instance, value, target):
@@ -25,14 +35,36 @@ class TabLayout(TabbedPanel):
             TabLayout.alarm_type_checks.remove(target)
 
     def add(self):
-        print(self.hour.text)
-        print(self.minute.text)
-        print(self.second.text)
-        print(self.sound.active)
-        print(self.popup.active)
-        print(self.label.text)
-        print(CheckBoxLayout.checks)
-        self.clear()
+        hour: str = self.hour.text
+        minute: str = self.minute.text
+        second: str = self.second.text
+        alert_time: time = time.fromisoformat(f"{hour}:{minute}:{second}")
+        days: List[DaysEnum] = list(CheckBoxLayout.checks.values())
+        alert_type: AlertDataType = {
+            "popup": self.popup.active,
+            "sound": self.sound.active,
+        }
+        data = {
+            "alert_time": alert_time,
+            "alert_type": json.dumps(alert_type),
+            "label": self.label.text,
+            "days": days,
+            "active": True,
+        }
+        inserted_id = insert_data(data=data)
+        if inserted_id is not None:
+            self.clear()
+            Scheduler().add_reminder(
+                [
+                    inserted_id,
+                    days,
+                    alert_time,
+                    alert_type,
+                ]
+            )
+
+            # send success message
+            self.push_message("Success")
 
     def clear(self):
         self.hour.text = "00"
@@ -43,6 +75,13 @@ class TabLayout(TabbedPanel):
         self.label.text = ""
         OnceBoxLayout.label_ins.text = ""
         CheckBoxLayout.checks = {}
+
+    def push_message(self, message):
+        self.alert_msg.text = message
+        Clock.schedule_once(self.pull_message, 3)
+
+    def pull_message(self, e):
+        self.alert_msg.text = ""
 
 
 class CheckBoxLayout(CheckBox):
