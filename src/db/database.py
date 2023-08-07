@@ -28,6 +28,24 @@ class Database:
         )
 
 
+def get_all():
+    conn = Database()
+    query = """
+        SELECT 
+            id,
+            label,
+            days,
+            alert_time,
+            type,
+            active
+        FROM remindmeapp;
+    """
+    with conn.cursor() as cursor:
+        cursor.execute(query)
+        reminders = cursor.fetchall()
+        return reminders
+
+
 def get_active_reminder():
     conn = Database()
     query = """

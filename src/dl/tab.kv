@@ -1,6 +1,50 @@
 #: import utils kivy.utils
 #: import Factory kivy.factory.Factory
 
+<ReminderState>:
+   GridLayout:
+      background_color: (60/255, 60/255, 61/255, 1)
+      canvas.before:
+         Color: 
+            rgba: self.background_color
+         Rectangle:
+            pos: self.pos 
+            size: self.size
+      size_hint: self.parent.width, None
+      cols: 1
+      # padding: ('2dp', '100dp', '4dp', '20dp')
+      Label:
+         text:root.text
+         color: (1,1,1,1)
+         bold: True 
+         italic: True 
+         outline_color: (10/255,10/255,10/255)
+         outline_width: 10
+      BoxLayout:
+         orientation:'horizontal'
+         Label:
+            text: root.other_text 
+            # size_hint: None, None
+            #pos_hint: {'right': 0.34}
+         Button:
+            background_normal: root.active_img
+            size: 0.1,0.1
+         Label:
+            text: root.state
+            font_size: 15
+<RemainderListView>:
+
+   viewclass: 'ReminderState'
+   RecycleBoxLayout:
+      padding: 30
+      spacing: 10
+      default_size: None, dp(56)
+      default_size_hint: 1, None
+      size_hint_y: None
+      height: self.minimum_height
+      orientation: 'vertical'
+      background_color: (162/255, 164/255, 168/255, 1)
+
 <RepeatPopup@Popup>:
    auto_dismiss: True 
    title: 'Repeat'
@@ -197,12 +241,12 @@
                      CheckBox:
                         id: popup
                         on_active: root.alarm_type_checkbox(self, self.active, 0)
-                        active: True
                      Label:
                         text:'Popup'
                      CheckBox:
                         id: sound
                         on_active: root.alarm_type_checkbox(self, self.active, 1)
+                        active: True
                      Label:
                         text:'Sound'
             GridLayout:
@@ -250,10 +294,7 @@
             source: 'images/list.png'
             size: self.size
             pos: self.pos
-      Button:
-         background_normal: 'images/list.png'
-         text:''
-         size_hint_y: 0.2
+      RemainderListView:
 
    TabbedPanelItem:
       text: ''
@@ -263,7 +304,9 @@
             source: 'images/home.png'
             size: self.size
             pos: self.pos
-      Button:
-         background_normal: 'images/home.png'
-         text:''
-         size_hint_y: 0.2
+      BoxLayout:
+         orientation:'vertical'
+         Button:
+            background_normal: 'images/home.png'
+            text:''
+            size_hint_y: 0.2
