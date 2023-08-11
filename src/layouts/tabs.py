@@ -33,7 +33,7 @@ class TabLayout(TabbedPanel):
         if value:
             TabLayout.alarm_type_checks.add(target)
         else:
-            TabLayout.alarm_type_checks.remove(target)
+            TabLayout.alarm_type_checks.discard(target)
 
     def add(self):
         hour: str = self.hour.text
