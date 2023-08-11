@@ -150,10 +150,10 @@
 
          GridLayout:
             cols: 1
-            row_default_height: '48dp'
-            row_force_default: True
-            spacing: 10, 10
-            padding: 10, 10
+            row_default_height: '50dp'
+            # row_force_default: True
+            spacing: 5, 5
+            padding: 5, 5
             GridLayout:
                cols: 2
                Label:
@@ -183,17 +183,14 @@
                      TextInput:
                         id: hour
                         text:'00'
-                        size_hint_y: 1
                         size_hint_x: 0.5
                      TextInput:
                         id: minute
                         text:'00'
-                        size_hint_y: 1
                         size_hint_x: 0.5
                      TextInput:
                         id: second
                         text:'00'
-                        size_hint_y: 1
                         size_hint_x: 0.5
                   BoxLayout:
                      orientation:'horizontal'
@@ -234,21 +231,21 @@
                      Rectangle:
                         size: self.size 
                         pos: self.pos 
-               GridLayout:
-                  cols: 2
-                  BoxLayout:
-                     orientation:'horizontal'
-                     CheckBox:
-                        id: popup
-                        on_active: root.alarm_type_checkbox(self, self.active, 0)
-                     Label:
-                        text:'Popup'
-                     CheckBox:
-                        id: sound
-                        on_active: root.alarm_type_checkbox(self, self.active, 1)
-                        active: True
-                     Label:
-                        text:'Sound'
+
+               BoxLayout:
+                  orientation:'horizontal'
+                  CheckBox:
+                     id: popup
+                     on_active: root.alarm_type_checkbox(self, self.active, 0)
+                     active: False
+                  Label:
+                     text:'Popup'
+                  CheckBox:
+                     id: sound
+                     on_active: root.alarm_type_checkbox(self, self.active, 1)
+                     active: True
+                  Label:
+                     text:'Sound'
             GridLayout:
                cols: 1
                rows: 2
@@ -286,7 +283,8 @@
                      pos: self.pos 
                color: (62/255, 92/255, 70/255, 1)
                font_size: 48
-
+            Label:
+               text:''
    TabbedPanelItem:
       text: ''
       canvas:
