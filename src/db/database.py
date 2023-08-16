@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional
 import environ
 import psycopg as pg
 
@@ -26,71 +26,6 @@ class Database:
             password=env.str("db_password"),
             port=env.int("db_port"),
         )
-
-
-class RemindMe:
-    def __init__(
-        self,
-        id,
-        label=None,
-        days=None,
-        alert_time=None,
-        type=None,
-        active=None,
-        created_at=None,
-        modified_at=None,
-    ):
-        self.id = id
-        self.label = label
-        self.days = days
-        self.alert_time = alert_time
-        self.type = type
-        self.active = active
-        self.created_at = created_at
-        self.modified_at = modified_at
-
-    @classmethod
-    def get_all(cls) -> List["RemindMe"]:
-        conn = Database()
-        query = """
-            SELECT 
-                id,
-                label,
-                days,
-                alert_time,
-                type,
-                active,
-                created_at,
-                modified_at
-            FROM remindmeapp;
-        """
-
-        with conn.cursor() as cursor:
-            cursor.execute(query)
-            reminders = cursor.fetchall()
-            if reminders is not None:
-                return [cls(*reminder) for reminder in reminders]
-            return []
-
-
-def get_active_reminder():
-    conn = Database()
-    query = """
-      SELECT 
-         id,
-         days,
-         alert_time,
-         type
-      FROM remindmeapp
-      WHERE active = %s;
-   """
-    with conn.cursor() as cursor:
-        cursor.execute(
-            query,
-            ["1"],
-        )
-        reminders = cursor.fetchall()
-        return reminders
 
 
 def insert_data(data: InsertDataType) -> Optional[int]:

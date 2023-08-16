@@ -1,5 +1,6 @@
+from typing import List
 import schedule
-from src.db.database import get_active_reminder
+from src.db.models.remindme import RemindMe
 from src.audio import Audio
 
 
@@ -10,55 +11,54 @@ class Scheduler:
         self.audio = Audio()
 
     def schedule_all(self):
-        reminders = get_active_reminder()
+        reminders: List[RemindMe] = RemindMe.get_reminder_by_cols("active=1,")
         for reminder in reminders:
             self.add_reminder(reminder)
 
-    def add_reminder(self, reminder):
-        alert_id, days, alert_time, alert_type = reminder
-        for day in days:
+    def add_reminder(self, reminder: RemindMe):
+        for day in reminder.days:
             if day == "Mon":
                 alert = (
                     schedule.every()
-                    .monday.at(alert_time.isoformat())
+                    .monday.at(reminder.alert_time.isoformat())
                     .do(self.audio.play)
                 )
             elif day == "Tue":
                 alert = (
                     schedule.every()
-                    .tuesday.at(alert_time.isoformat())
+                    .tuesday.at(reminder.alert_time.isoformat())
                     .do(self.audio.play)
                 )
             elif day == "Wed":
                 alert = (
                     schedule.every()
-                    .wednesday.at(alert_time.isoformat())
+                    .wednesday.at(reminder.alert_time.isoformat())
                     .do(self.audio.play)
                 )
             elif day == "Thur":
                 alert = (
                     schedule.every()
-                    .thursday.at(alert_time.isoformat())
+                    .thursday.at(reminder.alert_time.isoformat())
                     .do(self.audio.play)
                 )
             elif day == "Fri":
                 alert = (
                     schedule.every()
-                    .friday.at(alert_time.isoformat())
+                    .friday.at(reminder.alert_time.isoformat())
                     .do(self.audio.play)
                 )
             elif day == "Sat":
                 alert = (
                     schedule.every()
-                    .saturday.at(alert_time.isoformat())
+                    .saturday.at(reminder.alert_time.isoformat())
                     .do(self.audio.play)
                 )
             elif day == "Sun":
                 alert = (
                     schedule.every()
-                    .sunday.at(alert_time.isoformat())
+                    .sunday.at(reminder.alert_time.isoformat())
                     .do(self.audio.play)
                 )
-            Scheduler.scheduled_reminders[alert_id] = Scheduler.scheduled_reminders.get(
-                alert_id, {}
-            ) | {day: alert}
+            Scheduler.scheduled_reminders[
+                reminder.id
+            ] = Scheduler.scheduled_reminders.get(reminder.id, {}) | {day: alert}

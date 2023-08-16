@@ -7,7 +7,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.properties import BooleanProperty, StringProperty
 
-from src.db.database import RemindMe
+from src.db.models.remindme import RemindMe
 
 # from kivy.base import runTouchApp
 
