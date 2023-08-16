@@ -1,6 +1,6 @@
 # RemindMeApp
 
-<img src="docs/home.png" height=300>
+<img src="docs/home.png" width=200>
 
 This is an app developed with Kivy that acts as a reminder. You can set some events and the app will play a sound when it's time.
 
