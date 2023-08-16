@@ -1,5 +1,7 @@
 # RemindMeApp
 
+![home view](docs/home.png)
+
 This is an app developed with Kivy that acts as a reminder. You can set some events and the app will play a sound when it's time.
 
 ## Features
