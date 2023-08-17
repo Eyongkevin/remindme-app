@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from datetime import time
 import json
 from kivy.uix.tabbedpanel import TabbedPanel
@@ -9,7 +9,7 @@ from kivy.properties import ObjectProperty
 from kivy.clock import Clock
 
 from src.utils import sort_dict
-from src.db.database import insert_data
+from src.db.models.remindme import RemindMe
 from src.db.schema import DaysEnum, AlertDataType
 from src.scheduler import Scheduler
 from src.utils import ROOT_DIR
@@ -52,17 +52,10 @@ class TabLayout(TabbedPanel):
             "days": days,
             "active": True,
         }
-        inserted_id = insert_data(data=data)
-        if inserted_id is not None:
+        remindme: Optional[RemindMe] = RemindMe.insert_data(data=data)
+        if remindme is not None:
             self.clear()
-            Scheduler().add_reminder(
-                [
-                    inserted_id,
-                    days,
-                    alert_time,
-                    alert_type,
-                ]
-            )
+            Scheduler().add_reminder(remindme)
 
             # send success message
             self.push_message("Success")

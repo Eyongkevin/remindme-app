@@ -1,6 +1,7 @@
-from typing import List
+from typing import List, Optional
 from src.db.database import Database
 from src.db.serializers import serialize_filter
+from src.db.schema import InsertDataType
 
 
 class RemindMe:
@@ -8,8 +9,8 @@ class RemindMe:
         self,
         id,
         label=None,
-        days=None,
         alert_time=None,
+        days=None,
         type=None,
         active=None,
         created_at=None,
@@ -31,8 +32,8 @@ class RemindMe:
             SELECT 
                 id,
                 label,
-                days,
                 alert_time,
+                days,
                 type,
                 active,
                 created_at,
@@ -55,8 +56,8 @@ class RemindMe:
             SELECT 
                 id,
                 label,
-                days,
                 alert_time,
+                days,
                 type,
                 active,
                 created_at,
@@ -73,3 +74,30 @@ class RemindMe:
             if reminders is not None:
                 return [cls(*reminder) for reminder in reminders]
             return []
+
+    @classmethod
+    def insert_data(cls, data: InsertDataType) -> Optional["RemindMe"]:
+        conn = Database()
+        query = """
+        INSERT INTO remindmeapp(
+            label,
+            alert_time,
+            days,
+            type,
+            active
+        ) VALUES (%s,%s,%s,%s,%s) RETURNING *;
+        """
+        with conn.cursor() as cursor:
+            cursor.execute(
+                query,
+                [
+                    data["label"],
+                    data["alert_time"],
+                    data["days"],
+                    data["alert_type"],
+                    data["active"],
+                ],
+            )
+            redmindme = cursor.fetchone()
+            conn.commit()
+            return cls(*redmindme) if redmindme else None

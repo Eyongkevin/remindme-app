@@ -35,7 +35,7 @@ class Scheduler:
                     .wednesday.at(reminder.alert_time.isoformat())
                     .do(self.audio.play)
                 )
-            elif day == "Thur":
+            elif day == "Thu":
                 alert = (
                     schedule.every()
                     .thursday.at(reminder.alert_time.isoformat())
