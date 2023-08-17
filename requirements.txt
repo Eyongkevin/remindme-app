@@ -10,3 +10,5 @@ requests==2.31.0
 urllib3==2.0.4
 python-environ==0.4.54 
 schedule==1.2.0
+anosql==1.0.2
+psycopg2==2.9.7

@@ -1,10 +1,13 @@
 from typing import List, Optional
+from pathlib import Path
 from src.db.database import Database
-from src.db.serializers import serialize_filter
 from src.db.schema import InsertDataType
+from src.utils import ROOT_DIR, load_sql
 
 
 class RemindMe:
+    queries = load_sql(Path(ROOT_DIR) / "src" / "db" / "sql" / "remindme")
+
     def __init__(
         self,
         id,
@@ -28,76 +31,25 @@ class RemindMe:
     @classmethod
     def get_all(cls) -> List["RemindMe"]:
         conn = Database()
-        query = """
-            SELECT 
-                id,
-                label,
-                alert_time,
-                days,
-                type,
-                active,
-                created_at,
-                modified_at
-            FROM remindmeapp;
-        """
-
-        with conn.cursor() as cursor:
-            cursor.execute(query)
-            reminders = cursor.fetchall()
-            if reminders is not None:
-                return [cls(*reminder) for reminder in reminders]
-            return []
+        reminders = cls.queries.fetch_all(conn)
+        return [cls(*reminder) for reminder in reminders]
 
     @classmethod
-    def get_reminder_by_cols(cls, filter) -> List["RemindMe"]:
+    def get_reminder_by_active_cols(cls, active) -> List["RemindMe"]:
         conn = Database()
-        filter, values = serialize_filter(filter)
-        query = f"""
-            SELECT 
-                id,
-                label,
-                alert_time,
-                days,
-                type,
-                active,
-                created_at,
-                modified_at
-            FROM remindmeapp
-            WHERE {filter};
-        """
-        with conn.cursor() as cursor:
-            cursor.execute(
-                query,
-                values,
-            )
-            reminders = cursor.fetchall()
-            if reminders is not None:
-                return [cls(*reminder) for reminder in reminders]
-            return []
+        reminders = cls.queries.fetch_by_active(conn, active=active)
+        return [cls(*reminder) for reminder in reminders]
 
     @classmethod
     def insert_data(cls, data: InsertDataType) -> Optional["RemindMe"]:
         conn = Database()
-        query = """
-        INSERT INTO remindmeapp(
-            label,
-            alert_time,
-            days,
-            type,
-            active
-        ) VALUES (%s,%s,%s,%s,%s) RETURNING *;
-        """
-        with conn.cursor() as cursor:
-            cursor.execute(
-                query,
-                [
-                    data["label"],
-                    data["alert_time"],
-                    data["days"],
-                    data["alert_type"],
-                    data["active"],
-                ],
-            )
-            redmindme = cursor.fetchone()
-            conn.commit()
-            return cls(*redmindme) if redmindme else None
+        reminder = cls.queries.insert(
+            conn,
+            data["label"],
+            data["alert_time"],
+            data["days"],
+            data["alert_type"],
+            data["active"],
+        )[0]
+        conn.commit()
+        return cls(*reminder) if reminder else None

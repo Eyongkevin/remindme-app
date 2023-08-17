@@ -11,7 +11,7 @@ class Scheduler:
         self.audio = Audio()
 
     def schedule_all(self):
-        reminders: List[RemindMe] = RemindMe.get_reminder_by_cols("active=1,")
+        reminders: List[RemindMe] = RemindMe.get_reminder_by_active_cols(True)
         for reminder in reminders:
             self.add_reminder(reminder)
 
