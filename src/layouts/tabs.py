@@ -57,7 +57,9 @@ class TabLayout(TabbedPanel):
         if remindme is not None:
             self.clear()
             Scheduler().add_reminder(remindme)
-            self.reminder_list.data = RemainderListView.prepare_data()
+            self.reminder_list.data = RemainderListView.append_data(
+                self.reminder_list.data, remindme
+            )
 
             # send success message
             self.push_message("Success")
