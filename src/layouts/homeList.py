@@ -13,9 +13,10 @@ from src.db.models.remindme import RemindMe
 class RemainderListView(RecycleView):
     def __init__(self, **kwargs):
         super(RemainderListView, self).__init__(**kwargs)
-        self.data = self.prepare_data()
+        self.data = RemainderListView.prepare_data()
 
-    def prepare_data(self):
+    @staticmethod
+    def prepare_data():
         all_data = []
         reminders: List[RemindMe] = RemindMe.get_all()
         for reminder in reminders:

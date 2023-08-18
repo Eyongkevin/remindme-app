@@ -26,6 +26,7 @@ class TabLayout(TabbedPanel):
     popup = ObjectProperty(None)
     label = ObjectProperty(None)
     alert_msg = ObjectProperty(None)
+    reminder_list = ObjectProperty()
 
     alarm_type_checks: set = {0}
 
@@ -56,6 +57,7 @@ class TabLayout(TabbedPanel):
         if remindme is not None:
             self.clear()
             Scheduler().add_reminder(remindme)
+            self.reminder_list.data = RemainderListView.prepare_data()
 
             # send success message
             self.push_message("Success")
