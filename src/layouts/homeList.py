@@ -33,6 +33,6 @@ class RemainderListView(RecycleView):
 
 class ReminderState(RecycleDataViewBehavior, BoxLayout):
     text = StringProperty()
-    other_text = StringProperty()
+    alert_time = StringProperty()
     active_img = StringProperty()
     state = StringProperty()

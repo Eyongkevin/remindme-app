@@ -28,7 +28,7 @@ def load_sql(path: Path):
 def build_dict(label: str, alert_time: datetime, active: bool):
     return {
         "text": label,
-        "other_text": str(alert_time),
+        "alert_time": str(alert_time),
         "active_img": "images/active.png" if active else "images/inactive.png",
         "state": "Passed" if datetime.now().time() > alert_time else "Pending",
     }
