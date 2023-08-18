@@ -6,7 +6,7 @@ from src.utils import ROOT_DIR, load_sql
 
 
 class RemindMe:
-    queries = load_sql(Path(ROOT_DIR) / "src" / "db" / "sql" / "remindme")
+    __queries = load_sql(Path(ROOT_DIR) / "src" / "db" / "sql" / "remindme")
 
     def __init__(
         self,
@@ -31,19 +31,19 @@ class RemindMe:
     @classmethod
     def get_all(cls) -> List["RemindMe"]:
         conn = Database()
-        reminders = cls.queries.fetch_all(conn)
+        reminders = cls.__queries.fetch_all(conn)
         return [cls(*reminder) for reminder in reminders]
 
     @classmethod
     def get_reminder_by_active_cols(cls, active) -> List["RemindMe"]:
         conn = Database()
-        reminders = cls.queries.fetch_by_active(conn, active=active)
+        reminders = cls.__queries.fetch_by_active(conn, active=active)
         return [cls(*reminder) for reminder in reminders]
 
     @classmethod
     def insert_data(cls, data: InsertDataType) -> Optional["RemindMe"]:
         conn = Database()
-        reminder = cls.queries.insert(
+        reminder = cls.__queries.insert(
             conn,
             data["label"],
             data["alert_time"],
