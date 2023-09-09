@@ -45,6 +45,13 @@
       orientation: 'vertical'
       background_color: (162/255, 164/255, 168/255, 1)
 
+<RequestStartPopup>:
+   auto_dismiss: True 
+   title: 'Info'
+   size_hint: 0.6, 0.2
+   Label:
+      text:'You need to [b][size=45]start[/size][/b] first!!'
+      markup: True
 <SetStopWatchPopup>:
    auto_dismiss: False 
    title: 'Stop Time'
@@ -58,6 +65,7 @@
             text:'00'
             size_hint_x: 0.5
             font_size: 50
+            root_app: app
          Label:
             text:'mins'
       Button:
@@ -336,10 +344,11 @@
                Button:
                   text:'Pause'
                   background_color: (75/255, 75/255, 242/255, 1)
-                  on_release: self.parent.parent.pause(app)
+                  on_release: self.parent.parent.pause(self, app)
                Button:
                   text:'Reset'
                   background_color: (252/255, 36/255, 8/255, 1)
+                  on_release: self.parent.parent.reset(app)
             BoxLayout:
                orientation:'horizontal'
                height: 10
