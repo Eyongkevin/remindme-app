@@ -5,6 +5,8 @@ from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.lang import Builder
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.textinput import TextInput
+from kivy.uix.label import Label
 from kivy.properties import ObjectProperty
 from kivy.clock import Clock
 
@@ -14,6 +16,7 @@ from src.db.schema import DaysEnum, AlertDataType
 from src.scheduler import Scheduler
 from src.utils import ROOT_DIR
 from src.layouts.homeList import RemainderListView, ReminderState
+from src.layouts.stop_watch import *
 
 Builder.load_file(str(ROOT_DIR / "src" / "dl" / "tab.kv"))
 

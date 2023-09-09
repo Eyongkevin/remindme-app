@@ -45,6 +45,25 @@
       orientation: 'vertical'
       background_color: (162/255, 164/255, 168/255, 1)
 
+<SetStopWatchPopup>:
+   auto_dismiss: False 
+   title: 'Stop Time'
+   size_hint: 0.5, 0.3
+   BoxLayout:
+      orientation:'vertical'
+      BoxLayout:
+         orientation:'horizontal'
+         StopWatchInputText:
+            id: stopwatch_minute
+            text:'00'
+            size_hint_x: 0.5
+            font_size: 50
+         Label:
+            text:'mins'
+      Button:
+         text: 'OK'
+         on_release: root.dismiss(app)
+
 <RepeatPopup@Popup>:
    auto_dismiss: True 
    title: 'Repeat'
@@ -120,6 +139,7 @@
    label:label
    reminder_list:reminder_list
    alert_msg:alert_msg
+   time:time
    do_default_tab: False
    tab_pos: 'left_top'
    tab_height: self.parent.height / 15
@@ -287,6 +307,59 @@
             Label:
                text:''
    TabbedPanelItem:
+      text: 'SW'
+      BoxLayout:
+         orientation:'vertical'
+         BoxLayout:
+            orientation:'vertical'
+            Label:
+               id: time
+               text:'[b]00[/b]:00:00'
+               font_size: 80
+               bold: True
+               markup: True
+         StopWatchBoxLayout:
+            stopwatch_chosen_mins:stopwatch_chosen_mins
+            orientation:'vertical'
+            height: 100
+            size_hint: (1, None)
+            BoxLayout:
+               orientation:'horizontal'
+               padding: 20
+               spacing: 20
+               height: 90
+               size_hint: (1, None)
+               Button:
+                  text:'Start'
+                  background_color: (4/255, 204/255, 57/255, 1)
+                  on_release: Factory.SetStopWatchPopup().open()
+               Button:
+                  text:'Pause'
+                  background_color: (75/255, 75/255, 242/255, 1)
+                  on_release: self.parent.parent.pause(app)
+               Button:
+                  text:'Reset'
+                  background_color: (252/255, 36/255, 8/255, 1)
+            BoxLayout:
+               orientation:'horizontal'
+               height: 10
+               size_hint: (1, None)
+               Label:
+                  text:'Time'
+                  color: utils.get_color_from_hex('#4f4e4e')
+               StopWatchLabel:
+                  id: stopwatch_chosen_mins
+                  text:self.set_instance(self)
+         BoxLayout:
+            orientation:'vertical'
+            Label:
+               id: stopwatch
+               text:'00:00.[size=40]00[/size]'
+               font_size: 60
+               markup: True
+         
+
+   TabbedPanelItem:
       text: ''
       canvas:
          Rectangle:
@@ -310,3 +383,5 @@
             background_normal: 'images/home.png'
             text:''
             size_hint_y: 0.2
+      
+   
