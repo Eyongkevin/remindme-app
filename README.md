@@ -19,6 +19,12 @@ This is an app developed with Kivy that acts as a reminder. You can set some eve
   - event status, if active or not
   - event status, if passed or pending.
 
+## Stopwatch Page
+
+<img src="docs/stopwatch.png" width=150>
+
+This page contains a clock that runs base on your system's time zone, and a stopwatch for timing tasks.
+
 ## Future Features
 
 The app is still very young and under development. Here are some features that I am working on
