@@ -37,6 +37,8 @@ class StopWatchBoxLayout(BoxLayout):
 
     def reset(self, app):
         app.sw_state = "reset"
+        if StopWatchLabel.label_ins is not None:
+            StopWatchLabel.label_ins.text = ""
 
 
 class StopWatchLabel(Label):
