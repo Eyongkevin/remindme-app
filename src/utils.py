@@ -25,8 +25,9 @@ def load_sql(path: Path):
     return queries
 
 
-def build_dict(label: str, alert_time: datetime, active: bool):
+def build_dict(id: int, label: str, alert_time: datetime, active: bool):
     return {
+        "id": id,
         "text": label,
         "alert_time": str(alert_time),
         "active_img": "images/active.png" if active else "images/inactive.png",
