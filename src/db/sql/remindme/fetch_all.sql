@@ -10,4 +10,5 @@ SELECT
    active,
    created_at,
    modified_at
-FROM remindmeapp;
+FROM remindmeapp
+ORDER BY alert_time;
