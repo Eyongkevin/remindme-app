@@ -32,6 +32,7 @@
          Label:
             text: root.state
             font_size: 15
+            markup: True
 <RemainderListView>:
 
    viewclass: 'ReminderState'
@@ -320,12 +321,22 @@
          orientation:'vertical'
          BoxLayout:
             orientation:'vertical'
+            height: root.height/3
+            padding: 1
+            size_hint: (1, None)
             Label:
                id: time
                text:'[b]00[/b]:00:00'
-               font_size: 80
-               bold: True
+               # font_name: 'Roboto'
+               font_size: (root.height + root.width/2) / 10
+               # bold: True
                markup: True
+            Label:
+               id: date
+               text:''
+               bold: True
+               font_size: (root.height + root.width/2) / 40
+               
          StopWatchBoxLayout:
             stopwatch_chosen_mins:stopwatch_chosen_mins
             orientation:'vertical'
@@ -354,8 +365,9 @@
                height: 10
                size_hint: (1, None)
                Label:
-                  text:'Time'
-                  color: utils.get_color_from_hex('#4f4e4e')
+                  text:'[color=#4f4e4e]Time[/color]'
+                  # color: utils.get_color_from_hex('#4f4e4e')
+                  markup: True
                StopWatchLabel:
                   id: stopwatch_chosen_mins
                   text:self.set_instance(self)
@@ -364,7 +376,7 @@
             Label:
                id: stopwatch
                text:'00:00.[size=40]00[/size]'
-               font_size: 60
+               font_size: (root.height + root.width/2) / 15
                markup: True
          
 

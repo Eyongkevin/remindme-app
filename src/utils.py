@@ -1,5 +1,6 @@
 from pathlib import Path
-from datetime import datetime
+import datetime
+from kivy.core.text import LabelBase
 import anosql  # this seems to only work with pycopg2.
 import psycopg2
 
@@ -31,5 +32,22 @@ def build_dict(id: int, label: str, alert_time: datetime, active: bool):
         "text": label,
         "alert_time": str(alert_time),
         "active_img": "images/active.png" if active else "images/inactive.png",
-        "state": "Passed" if datetime.now().time() > alert_time else "Pending",
+        "state": "[color=#f74728]Passed[/color]"
+        if datetime.datetime.now().time() > alert_time
+        else "Pending",
     }
+
+
+def load_fonts():
+    font_path = ROOT_DIR / "static" / "fonts" / "Roboto"
+    LabelBase.register(
+        name="Roboto",
+        fn_regular=str(font_path / "Roboto-Thin.ttf"),
+        fn_bold=str(font_path / "Roboto-Medium.ttf"),
+    )
+
+
+def seconds_until_midnight():
+    now = datetime.datetime.now()
+    tomorrow = datetime.datetime(now.year, now.month, now.day) + datetime.timedelta(1)
+    return abs(tomorrow - now).seconds
