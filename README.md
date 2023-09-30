@@ -33,9 +33,6 @@ The app is still very young and under development. Here are some features that I
 - Validation of the configuration page entries.
   - Time entered should be checked
   - The `Add` button shouldn't be active if required fields are not entered
-- Reload the `Reminder List Page` each time the following happens
-  - A reminder is added
-  - An alarm is triggered.
 - A reminder can be added with a break length. Just like the pomodoro technique, we should have a count-down prior to the alarm been triggered.
 - The homepage can show a maximum of 2 events. The event that just got triggered, with it's count-down if applicable, and the up-coming event. Then a small button is provided that shows all passed events in a popup.
 - A search form in the `Reminder List Page` to search events.
