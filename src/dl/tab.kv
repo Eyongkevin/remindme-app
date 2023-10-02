@@ -51,8 +51,9 @@
    title: 'Info'
    size_hint: 0.6, 0.2
    Label:
-      text:'You need to [b][size=45]start[/size][/b] first!!'
+      text:'You need to [b][size='+ str(int((root.height + root.width)/10)) +']start[/size][/b] first!!'
       markup: True
+      font_size: (root.height + root.width)/20
 <SetStopWatchPopup>:
    auto_dismiss: False 
    title: 'Stop Time'
@@ -65,7 +66,7 @@
             id: stopwatch_minute
             text:'00'
             size_hint_x: 0.5
-            font_size: 50
+            font_size: (self.parent.width + self.parent.height)/10
             root_app: app
          Label:
             text:'mins'
