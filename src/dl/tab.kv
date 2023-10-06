@@ -147,6 +147,8 @@
    sound:sound 
    popup:popup
    label:label
+   once_days:once_days
+   add_button:add_button
    reminder_list:reminder_list
    alert_msg:alert_msg
    time:time
@@ -215,9 +217,11 @@
                         id: hour
                         text:'00'
                         size_hint_x: 0.5
+                        on_text: root.try_activate_button()
                      TextInput:
                         id: minute
                         text:'00'
+                        on_text: root.try_activate_button()
                         size_hint_x: 0.5
                      TextInput:
                         id: second
@@ -241,6 +245,7 @@
                   Label:
                      id: once_days
                      text: self.parent.get_days(self)
+                     on_text: root.try_activate_button()
                      background_color: (35/255, 36/255, 35/255, 1)
                      canvas.before:
                         Color:
@@ -292,6 +297,7 @@
                TextInput:
                   id: label
                   text:''
+                  on_text: root.try_activate_button()
             GridLayout:
                cols: 2
                Button:
@@ -299,7 +305,9 @@
                   background_color: (252/255, 36/255, 8/255, 1)
                   on_release: root.clear()
                Button:
+                  id: add_button
                   text:'Add'
+                  disabled: True
                   background_color: (4/255, 204/255, 57/255, 1)
                   on_release: root.add()
             Label:

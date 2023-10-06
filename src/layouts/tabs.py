@@ -30,7 +30,8 @@ class TabLayout(TabbedPanel):
     label = ObjectProperty(None)
     alert_msg = ObjectProperty(None)
     reminder_list = ObjectProperty()
-
+    once_days = ObjectProperty(None)
+    add_button = ObjectProperty(None)
     alarm_type_checks: set = {0}
 
     def alarm_type_checkbox(self, instance, value, target):
@@ -85,6 +86,25 @@ class TabLayout(TabbedPanel):
 
     def pull_message(self, e):
         self.alert_msg.text = ""
+
+    def _check_time(txt, type=None):
+        pass
+        # if type == 'hr':
+        #     return all([
+        #         len(txt) == 2,
+        #         txt.isnumeric
+        #     ])
+
+    def try_activate_button(self):
+        if (
+            len(self.label.text) > 2
+            and self.once_days.text
+            and len(self.hour.text) == 2
+            and len(self.minute.text) in [1, 2]
+        ):
+            self.add_button.disabled = False
+        else:
+            self.add_button.disabled = True
 
 
 class CheckBoxLayout(CheckBox):
