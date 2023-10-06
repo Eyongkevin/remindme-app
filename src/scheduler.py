@@ -64,12 +64,29 @@ class Scheduler:
                 reminder.id
             ] = Scheduler.scheduled_reminders.get(reminder.id, {}) | {day: alert}
 
+    def set_reminder_to_passed(self, reminder_id):
+        """change the reminder state that just alarmed to `passed`
+
+        The only way I could get this to work was to
+        - Get the reminder and change the state
+        - delete that reminder from the total data of reminders
+        - Then append them again.
+
+        Args:
+            reminder_id (int): ID of reminder to change the state.
+        """
+        data = Scheduler.data_instance.data
+        for item in data:
+            if item["id"] == reminder_id:
+                idx = data.index(item)
+                data[idx]["state"] = "[color=#f74728]Passed[/color]"
+                modified_reminder = data[idx]
+                data.remove(modified_reminder)
+                Scheduler.data_instance.data = data + [modified_reminder]
+                break
+
     def run_reminder(self, reminder_id: int):
         # Override the reminder's state
-        for item in Scheduler.data_instance.data:
-            if item["id"] == reminder_id:
-                idx = Scheduler.data_instance.data.index(item)
-                Scheduler.data_instance.data[idx]["state"] = "Passed"
-                break
+        self.set_reminder_to_passed(reminder_id)
         # Play the audio
         self.audio.play()

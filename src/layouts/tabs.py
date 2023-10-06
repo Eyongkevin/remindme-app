@@ -63,6 +63,8 @@ class TabLayout(TabbedPanel):
             self.reminder_list.data = RemainderListView.append_data(
                 self.reminder_list.data, remindme
             )
+            # add to the instance saved in Scheduler
+            Scheduler.data_instance.data = self.reminder_list.data
 
             # send success message
             self.push_message("Success")
