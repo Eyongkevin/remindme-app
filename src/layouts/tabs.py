@@ -1,7 +1,7 @@
 from typing import List, Optional
-from datetime import time
+from datetime import time, datetime
 import json
-from kivy.uix.tabbedpanel import TabbedPanel
+from kivy.uix.tabbedpanel import TabbedPanel, TabbedPanelItem
 from kivy.lang import Builder
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.boxlayout import BoxLayout
@@ -102,9 +102,26 @@ class TabLayout(TabbedPanel):
             and len(self.hour.text) == 2
             and len(self.minute.text) in [1, 2]
         ):
-            self.add_button.disabled = False
+            try:
+                time.fromisoformat(
+                    f"{self.hour.text}:{self.minute.text}:{self.second.text}"
+                )
+                self.add_button.disabled = False
+            except ValueError:
+                self.add_button.disabled = True
         else:
             self.add_button.disabled = True
+
+
+class ReminderListTabbedPanelItem(TabbedPanelItem):
+    refresh_date = None
+
+    def on_release(self, *largs):
+        current_date = datetime.now().date()
+        if not self.refresh_date == current_date:
+            self.refresh_date = current_date
+            Scheduler.data_instance.data = RemainderListView.prepare_data()
+        return super().on_release(*largs)
 
 
 class CheckBoxLayout(CheckBox):

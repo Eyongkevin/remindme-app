@@ -52,17 +52,17 @@ class MainApp(App):
     def _update_date(self):
         self.root.children[0].children[0].ids.date.text = strftime("%a, %B %-d")
 
-    def _update_home_list_data(self, dt):
-        Scheduler.data_instance.data = RemainderListView.prepare_data()
-        self._schedule_once_at_midnight()
+    # def _update_home_list_data(self, dt):
+    #     Scheduler.data_instance.data = RemainderListView.prepare_data()
+    #     self._schedule_once_at_midnight()
 
-    def _schedule_once_at_midnight(self):
-        secs = seconds_until_midnight()
-        Clock.schedule_once(self._update_home_list_data, secs)
+    # def _schedule_once_at_midnight(self):
+    #     secs = seconds_until_midnight()
+    #     Clock.schedule_once(self._update_home_list_data, secs)
 
     def on_start(self):
         Clock.schedule_interval(self.update_time, 0)
-        self._schedule_once_at_midnight()
+        # self._schedule_once_at_midnight()
 
     def build(self):
         Window.size = (300, 500)
