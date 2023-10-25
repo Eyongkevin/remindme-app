@@ -17,6 +17,7 @@ from src.scheduler import Scheduler
 from src.utils import ROOT_DIR
 from src.layouts.homeList import RemainderListView, ReminderState
 from src.layouts.stop_watch import *
+from src.layouts.home import *
 
 Builder.load_file(str(ROOT_DIR / "src" / "dl" / "tab.kv"))
 

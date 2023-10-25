@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Tuple
 from pathlib import Path
 from src.db.database import Database
 from src.db.schema import InsertDataType
@@ -33,6 +33,12 @@ class RemindMe:
         conn = Database()
         reminders = cls.__queries.fetch_all(conn)
         return [cls(*reminder) for reminder in reminders]
+
+    @classmethod
+    def get_upcoming_reminder(cls) -> Optional["RemindMe"]:
+        conn = Database()
+        reminder: List[Tuple["RemindMe"]] = cls.__queries.fetch_next(conn)
+        return cls(*reminder[0]) if reminder else None
 
     @classmethod
     def get_reminder_by_active_cols(cls, active) -> List["RemindMe"]:

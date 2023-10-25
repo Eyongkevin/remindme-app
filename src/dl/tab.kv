@@ -411,7 +411,7 @@
          orientation:'vertical'
          padding: 15
          spacing: 15
-         BoxLayout:
+         UpcominigBoxLayout:
             background_color: (60/255, 60/255, 61/255, 1)
             orientation:'vertical'
             height: root.height/4
@@ -435,7 +435,7 @@
             BoxLayout:
                orientation:'vertical'
                Label:
-                  text:'DCI Coffee Break 1'
+                  text: self.parent.parent.get_upcoming_label()  #'DCI Coffee Break 1'
                   color: (1,1,1,1)
                   bold: True 
                   italic: True 
@@ -445,7 +445,7 @@
             BoxLayout:
                orientation:'horizontal'
                Label:
-                  text:'[color=#0aff2c]At[/color]: 09:30:00'
+                  text:'[color=#0aff2c]At[/color]: ' + self.parent.parent.get_upcoming_alert_time()
                   markup: True
                Label:
                   text:'[color=#f7473e]left[/color]: [size=40]14:00.[size=20]00[/size][/size]'
