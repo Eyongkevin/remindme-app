@@ -409,9 +409,80 @@
             pos: self.pos
       BoxLayout:
          orientation:'vertical'
-         Button:
-            background_normal: 'images/home.png'
-            text:''
-            size_hint_y: 0.2
+         padding: 15
+         spacing: 15
+         BoxLayout:
+            background_color: (60/255, 60/255, 61/255, 1)
+            orientation:'vertical'
+            height: root.height/4
+            size_hint: 1, None
+            canvas.before:
+               Color:
+                  rgba: self.background_color
+               Rectangle:
+                  size: self.size 
+                  pos: self.pos 
+            BoxLayout:
+               orientation:'vertical'
+               Label:
+                  text:'Up coming'
+                  color: (0,1,1,1)
+                  bold: True 
+                  italic: True 
+                  #outline_color: (0,1,1)
+                  # outline_width: 10
+                  font_size: root.width / 18
+            BoxLayout:
+               orientation:'vertical'
+               Label:
+                  text:'DCI Coffee Break 1'
+                  color: (1,1,1,1)
+                  bold: True 
+                  italic: True 
+                  outline_color: (10/255,10/255,10/255)
+                  outline_width: 10
+                  font_size: root.width / 25
+            BoxLayout:
+               orientation:'horizontal'
+               Label:
+                  text:'[color=#0aff2c]At[/color]: 09:30:00'
+                  markup: True
+               Label:
+                  text:'[color=#f7473e]left[/color]: [size=40]14:00.[size=20]00[/size][/size]'
+                  markup: True
+
+         BoxLayout:
+            orientation:'vertical'
+            BoxLayout:
+               orientation:'vertical'
+               height: root.height/10
+               size_hint: 1, None
+               Label:
+                  text:'Passed Alarm'
+                  color: '#f7473e'
+                  bold: True 
+                  italic: True 
+                  #outline_color: (0,1,1)
+                  # outline_width: 10
+                  font_size: root.width / 18
+            BoxLayout:
+               orientation:'vertical'
+               RemainderListView:
+               
+            BoxLayout:
+               orientation:'horizontal'
+               height: root.height/30
+               size_hint: 1, None
+               Label:
+                  text:''
+               Label:
+                  text:''
+               Button:
+                  text:'Show All'
+                  font_size: 20
+            # BoxLayout:
+            #    orientation:'vertical'
+            #    height: root.height/50
+            
       
    
