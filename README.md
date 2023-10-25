@@ -9,7 +9,8 @@ This is an app developed with Kivy that acts as a reminder. You can set some eve
 ## Configuration Page
 
 - Set time and days for the alarm to be triggered
-- Set a label for the even.
+- Set a label for the event.
+- Validation is set to activate the `Add` button only when required fields are filled.
 
 ## Reminder List Page
 
@@ -30,9 +31,6 @@ This page contains a clock that runs base on your system's time zone, and a stop
 The app is still very young and under development. Here are some features that I am working on
 
 - Select between popup and/or different sounds for the alarm
-- Validation of the configuration page entries.
-  - Time entered should be checked
-  - The `Add` button shouldn't be active if required fields are not entered
 - A reminder can be added with a break length. Just like the pomodoro technique, we should have a count-down prior to the alarm been triggered.
 - The homepage can show a maximum of 2 events. The event that just got triggered, with it's count-down if applicable, and the up-coming event. Then a small button is provided that shows all passed events in a popup.
 - A search form in the `Reminder List Page` to search events.
