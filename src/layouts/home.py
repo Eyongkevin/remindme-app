@@ -8,14 +8,14 @@ from kivy.properties import ObjectProperty
 
 
 class UpcominigBoxLayout(BoxLayout):
-    upcoming = RemindMe.get_upcoming_reminder()
+    upcoming: Optional[RemindMe] = RemindMe.get_upcoming_reminder()
 
     def get_upcoming_label(self):
         # breakpoint()
-        return self.upcoming.label
+        return self.upcoming.label if self.upcoming is not None else '---'
 
     def get_upcoming_alert_time(self):
-        return str(self.upcoming.alert_time)
+        return str(self.upcoming.alert_time) if self.upcoming is not None else '...'
 
     def get_upcoming_left_time(self):
         # TODO: get left time.
