@@ -36,3 +36,74 @@ The app is still very young and under development. Here are some features that I
 - A search form in the `Reminder List Page` to search events.
 - Filters to filter by `passed`, `pending`, `active`, `inactive`
 - Ways to edit events from the `Reminder List Page`: We could have buttons to delete, activate and inactivate from the list page, but for edit, once we press the edit button, it should take us to the configuration page with all information pre-filled, ready to be edited.
+
+## How to Install
+This process of installation was tested on a macbook pro 2015 and 2023 version.
+
+**NB**
+- At the time of writing this readme, Kivy doesn't build with Python 3.12+.
+- I am using `psycopg version 3` for this project. But I think `psycopg2` should work fine.
+
+### Setup the postgresql database
+- Log in as postgres user: `psql -U postgres` and do the following;
+```postgresql
+-- Create a user for this project and give it create db privileges 
+CREATE USER <username> WITH PASSWORD '<password>';
+ALTER USER <username> WITH CREATEDB;
+
+-- connect to that user 
+\c postgres <username>
+
+--- create the database
+CREATE DATABASE <db-name>
+
+-- connect to the newly created database with the created user
+
+\c <db-name> <username>
+
+-- Make sure you are in the root directory and run the command.
+-- This will create the table in the database
+\i docs/script.sql
+```
+
+### Set up you .env file
+- Create a  `.env` file in the root directory and replace values in `<>` with your values;
+
+```
+db_host=localhost
+db_name=<db-name>
+db_user=<username>
+db_password=<password>
+db_port=5432
+
+```
+
+### Install dependencies
+- Create an source a virtual environment with `Python v3.11`
+
+```bash
+python3.11 -m venv .venv --prompt remindme-app
+source .venv/bin/activate
+
+```
+- In the root directory, run the following command to install all packages
+```bash
+pip install -r requirements.txt
+```
+
+## Start the program
+- Run `make` in the root directory
+```bash
+make
+```
+
+## How to contribute
+
+**RemindMeApp** is an [open source](https://opensource.com/resources/what-open-source) project. I am open to suggestions and willing to extend it to a different level. Anyone willing to contribute is highly welcomed.
+To contribute, go ahead and:
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :blush:
