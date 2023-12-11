@@ -1,7 +1,9 @@
 from typing import List
+
 import schedule
-from src.db.models.remindme import RemindMe
+
 from src.audio import Audio
+from src.db.models.remindme import RemindMe
 
 
 class Scheduler:
