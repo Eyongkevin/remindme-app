@@ -1,6 +1,6 @@
 
--- name: fetch-next
--- Get upcoming reminder
+-- name: fetch-next-refresh
+-- Get upcoming reminder to refresh
 SELECT 
    id,
    label,
@@ -11,6 +11,6 @@ SELECT
    created_at,
    modified_at
 FROM remindmeapp
-WHERE alert_time > CURRENT_TIME AND active IS true
+WHERE alert_time > CURRENT_TIME + '00:01:00'::TIME AND active IS true
 ORDER BY alert_time -- DESC
-LIMIT 1;
+LIMIT 2;

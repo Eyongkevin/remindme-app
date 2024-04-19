@@ -1,6 +1,59 @@
 #: import utils kivy.utils
 #: import Factory kivy.factory.Factory
 
+# upcoming reminder
+<UpcomingState>:
+   GridLayout:
+      background_color: (60/255, 60/255, 61/255, 1)
+      canvas.before:
+         Color: 
+            rgba: self.background_color
+         Rectangle:
+            pos: self.pos 
+            size: self.size[0], self.size[1] * 2
+      # size_hint: self.parent.width, None
+      cols: 1
+      BoxLayout:
+         orientation:'vertical'
+         padding: 25
+         spacing: 25
+         Label:
+            text: 'Up coming'
+            color: (0,1,1,1)
+            bold: True 
+            italic: True 
+            font_size: root.width / 15
+      BoxLayout:
+         orientation: 'vertical'
+         Label:
+            text: root.label
+            color: (1,1,1,1)
+            bold: True 
+            italic: True 
+            outline_color: (10/255,10/255,10/255)
+            outline_width: 10
+            font_size: root.width / 20
+      BoxLayout:
+         orientation: 'horizontal'
+         Label:
+            text: '[color=#0aff2c]' + root.day + '[/color]'
+            markup: True
+         Label:
+            text: root.alert_time
+
+<UpcomingListView>:
+   viewclass: 'UpcomingState'
+   RecycleBoxLayout:
+      padding: 30
+      spacing: 10
+      default_size: None, dp(56)
+      default_size_hint: 1, None
+      size_hint_y: None
+      height: self.minimum_height
+      orientation: 'vertical'
+      background_color: (162/255, 164/255, 168/255, 1)
+
+
 <ReminderState>:
    GridLayout:
       background_color: (60/255, 60/255, 61/255, 1)
@@ -150,6 +203,7 @@
    once_days:once_days
    add_button:add_button
    reminder_list:reminder_list
+   upcoming_list:upcoming_list
    alert_msg:alert_msg
    time:time
    do_default_tab: False
@@ -157,6 +211,16 @@
    tab_height: self.parent.height / 15
    tab_width: self.parent.width / 5
 
+   UpcomingTabbedPanelItem:
+      text: ''
+      size_hint: .5, 0.5   
+      canvas:
+         Rectangle:
+            source: 'images/home.png'
+            size: self.size
+            pos: self.pos
+      UpcomingListView:
+         id: upcoming_list
    TabbedPanelItem:
       text: ''
       canvas:
@@ -399,90 +463,97 @@
       RemainderListView:
          id: reminder_list
 
-   TabbedPanelItem:
-      text: ''
-      size_hint: .5, 0.5   
-      canvas:
-         Rectangle:
-            source: 'images/home.png'
-            size: self.size
-            pos: self.pos
-      BoxLayout:
-         orientation:'vertical'
-         padding: 15
-         spacing: 15
-         UpcominigBoxLayout:
-            background_color: (60/255, 60/255, 61/255, 1)
-            orientation:'vertical'
-            height: root.height/4
-            size_hint: 1, None
-            canvas.before:
-               Color:
-                  rgba: self.background_color
-               Rectangle:
-                  size: self.size 
-                  pos: self.pos 
-            BoxLayout:
-               orientation:'vertical'
-               Label:
-                  text:'Up coming'
-                  color: (0,1,1,1)
-                  bold: True 
-                  italic: True 
-                  #outline_color: (0,1,1)
-                  # outline_width: 10
-                  font_size: root.width / 18
-            BoxLayout:
-               orientation:'vertical'
-               Label:
-                  text: self.parent.parent.get_upcoming_label()  #'DCI Coffee Break 1'
-                  color: (1,1,1,1)
-                  bold: True 
-                  italic: True 
-                  outline_color: (10/255,10/255,10/255)
-                  outline_width: 10
-                  font_size: root.width / 25
-            BoxLayout:
-               orientation:'horizontal'
-               Label:
-                  text:'[color=#0aff2c]At[/color]: ' + self.parent.parent.get_upcoming_alert_time()
-                  markup: True
-               Label:
-                  text:'[color=#f7473e]left[/color]: [size=40]14:00.[size=20]00[/size][/size]'
-                  markup: True
+   
+   
+   
+   # TabbedPanelItem:
+   #    text: ''
+   #    size_hint: .5, 0.5   
+   #    canvas:
+   #       Rectangle:
+   #          source: 'images/home.png'
+   #          size: self.size
+   #          pos: self.pos
+   #    BoxLayout:
+   #       orientation:'vertical'
+   #       padding: 15
+   #       spacing: 15
+   #       UpcominigBoxLayout:
+   #          background_color: (60/255, 60/255, 61/255, 1)
+   #          orientation:'vertical'
+   #          height: root.height/4
+   #          size_hint: 1, None
+   #          canvas.before:
+   #             Color:
+   #                rgba: self.background_color
+   #             Rectangle:
+   #                size: self.size 
+   #                pos: self.pos 
+   #          BoxLayout:
+   #             orientation:'vertical'
+   #             Label:
+   #                text:'Up coming'
+   #                color: (0,1,1,1)
+   #                bold: True 
+   #                italic: True 
+   #                #outline_color: (0,1,1)
+   #                # outline_width: 10
+   #                font_size: root.width / 18
+   #          BoxLayout:
+   #             orientation:'vertical'
+   #             Label:
+   #                text: self.parent.parent.get_upcoming_label()  #'DCI Coffee Break 1'
+   #                color: (1,1,1,1)
+   #                bold: True 
+   #                italic: True 
+   #                outline_color: (10/255,10/255,10/255)
+   #                outline_width: 10
+   #                font_size: root.width / 25
+   #          BoxLayout:
+   #             orientation:'horizontal'
+   #             Label:
+   #                text: '[color=#0aff2c]On[/color]: ' + self.parent.parent.get_upcoming_day()
+   #                markup: True
+   #             Label:
+   #                text:'[color=#0aff2c]At[/color]: ' + self.parent.parent.get_upcoming_alert_time()
+   #                markup: True
+ 
+   #             # Label:
+   #             #    text:'[color=#f7473e]left[/color]: [size=40]14:00.[size=20]00[/size][/size]'
+   #             #    markup: True
 
-         BoxLayout:
-            orientation:'vertical'
-            BoxLayout:
-               orientation:'vertical'
-               height: root.height/10
-               size_hint: 1, None
-               Label:
-                  text:'Passed Alarm'
-                  color: '#f7473e'
-                  bold: True 
-                  italic: True 
-                  #outline_color: (0,1,1)
-                  # outline_width: 10
-                  font_size: root.width / 18
-            BoxLayout:
-               orientation:'vertical'
-               RemainderListView:
+   #       BoxLayout:
+   #          orientation:'vertical'
+   #          BoxLayout:
+   #             orientation:'vertical'
+   #             height: root.height/10
+   #             size_hint: 1, None
+   #             Label:
+   #                text:'Passed Alarm'
+   #                color: '#f7473e'
+   #                bold: True 
+   #                italic: True 
+   #                #outline_color: (0,1,1)
+   #                # outline_width: 10
+   #                font_size: root.width / 18
+   #          BoxLayout:
+   #             orientation:'vertical'
+   #             # RemainderListView:
                
-            BoxLayout:
-               orientation:'horizontal'
-               height: root.height/30
-               size_hint: 1, None
-               Label:
-                  text:''
-               Label:
-                  text:''
-               Button:
-                  text:'Show All'
-                  font_size: 20
-            # BoxLayout:
-            #    orientation:'vertical'
-            #    height: root.height/50
+   #          BoxLayout:
+   #             orientation:'horizontal'
+   #             height: root.height/30
+   #             size_hint: 1, None
+   #             Label:
+   #                text:''
+   #             Label:
+   #                text:''
+   #             Button:
+   #                text:'Show All'
+   #                font_size: 20
+   #          # BoxLayout:
+   #          #    orientation:'vertical'
+   #          #    height: root.height/50
             
       
    

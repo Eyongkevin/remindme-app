@@ -1,6 +1,6 @@
-from typing import TypedDict, List
-from enum import Enum
 from datetime import time
+from enum import Enum
+from typing import List, TypedDict
 
 
 class DaysEnum(Enum):
@@ -20,7 +20,7 @@ class AlertDataType(TypedDict):
 
 class InsertDataType(TypedDict):
     alert_time: time
-    alert_type: AlertDataType
+    alert_type: str  # AlertDataType
     label: str
     days: List[DaysEnum]
     active: bool
