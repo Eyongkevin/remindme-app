@@ -1,4 +1,6 @@
 start-app:
 	python -m src.main
-install:
-	pip install -r requirements.txt
+dev-install:
+	pip install -r requirements/dev.txt
+test-install:
+	pip install -r requirements/test.txt
